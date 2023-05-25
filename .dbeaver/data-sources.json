@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"postgres-jdbc-1884b48da81-20bf0b5226334713": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "inec",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "5432",
+				"database": "inec",
+				"url": "jdbc:postgresql://localhost:5432/inec",
+				"configurationType": "MANUAL",
+				"home": "postgresql-x64-15",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-chosen-role@": "inec"
+				},
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
