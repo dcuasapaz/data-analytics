@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" modified="2023-05-25T05:00:23.986Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="g-wOZ2e7kqw7lnD1jTRe" version="21.3.3" type="onedrive">
+  <diagram name="Página-1" id="KQfupOX7OGUYnsdRUO_P">
+    <mxGraphModel dx="1434" dy="756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=middle;aspect=fixed;imageAspect=0;image=https://upload.wikimedia.org/wikipedia/commons/a/a8/Logo_del_INEC_Ecuador.png;" vertex="1" parent="1">
+          <mxGeometry x="70" y="100" width="133.6" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-2" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;verticalAlign=middle;fillColor=#bac8d3;strokeColor=none;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="140.36" as="sourcePoint" />
+            <mxPoint x="290" y="140.36" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-3" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=middle;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/617/617449.png;" vertex="1" parent="1">
+          <mxGeometry x="330" y="110.86" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-4" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;verticalAlign=middle;fillColor=#bac8d3;strokeColor=none;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="421" y="140.36" as="sourcePoint" />
+            <mxPoint x="491" y="140.36" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-6" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=middle;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/724/724831.png;" vertex="1" parent="1">
+          <mxGeometry x="520" y="115.86" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-7" value="IMPORT" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Tahoma;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="515" y="165.86" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-8" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;verticalAlign=middle;fillColor=#bac8d3;strokeColor=none;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="140.36" as="sourcePoint" />
+            <mxPoint x="660" y="140.36" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-9" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=middle;aspect=fixed;imageAspect=0;image=https://www.geomapik.com/wp-content/uploads/2019/09/postgresql-logo-921x1024.png;" vertex="1" parent="1">
+          <mxGeometry x="670" y="100" width="73.5" height="81.72" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-10" value="* EGRESOS HOSPITALARIOS (2015 - 2020)" style="text;html=1;strokeColor=#23445d;fillColor=#bac8d3;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontStyle=1;fontFamily=Verdana;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="0.1999999999999993" y="230.00000000000003" width="273.2" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-11" value="* inec_tbl_eeh_2015&lt;br style=&quot;font-size: 11px;&quot;&gt;* inec_tbl_eeh_2016&lt;br style=&quot;font-size: 11px;&quot;&gt;* inec_tbl_eeh_2017&lt;br style=&quot;font-size: 11px;&quot;&gt;* inec_tbl_eeh_2018&lt;br style=&quot;font-size: 11px;&quot;&gt;* inec_tbl_eeh_2019&lt;br style=&quot;font-size: 11px;&quot;&gt;* inec_tbl_eeh_2020" style="text;whiteSpace=wrap;html=1;fontFamily=Tahoma;fontSize=11;labelBackgroundColor=none;labelBorderColor=none;fillColor=#fad7ac;strokeColor=#b46504;rounded=1;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="646.75" y="195.00000000000003" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qqLgkhIN7a1XXyQMbN38-13" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;fillColor=#b0e3e6;strokeColor=none;" edge="1" parent="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="375" y="255.36" as="sourcePoint" />
+            <mxPoint x="515" y="255.36" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -19,25 +19,6 @@
 				},
 				"auth-model": "native"
 			}
-		},
-		"postgres-jdbc-188c87753cc-4f803c4ed859da66": {
-			"provider": "postgresql",
-			"driver": "postgres-jdbc",
-			"name": "inec_bck_20230617",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "5432",
-				"database": "inec_bck_20230617",
-				"url": "jdbc:postgresql://localhost:5432/inec_bck_20230617",
-				"configurationType": "MANUAL",
-				"home": "postgresql-x64-15",
-				"type": "dev",
-				"provider-properties": {
-					"@dbeaver-chosen-role@": "inec"
-				},
-				"auth-model": "native"
-			}
 		}
 	},
 	"connection-types": {
