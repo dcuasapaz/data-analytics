@@ -1,3 +1,17 @@
+SELECT i_cnt_cde::integer AS i_cnt_cde
+,s_cnt_nme 
+,i_2015 
+,i_2016
+,i_2017
+,i_2018
+,i_2019
+,i_2020
+FROM dpa_qry_cnt_pbl_2015_2020
+INNER JOIN 
+WHERE i_prv_cde = 13
+ORDER  BY 1;
+
+
 DROP VIEW inec_qry_mnb_mrb_mrt_2015_2020;
 DROP VIEW inec_qry_mnb_cnt_pbl_fll_agrp_2015_2020;
 DROP VIEW inec_qry_mnb_cnt_pbl_fll_2015_2020;
@@ -96,6 +110,7 @@ FROM inec_qry_mnb_pbl_2015_2020 a
 INNER JOIN inec_qry_mnb_mrb_mrt_2015_2020 b ON a.i_yr = b.i_yr
 ORDER BY 1;
 
+SELECT * FROM inec_qry_mnb_pbl_2015_2020;
 
 
 

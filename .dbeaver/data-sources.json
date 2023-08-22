@@ -38,6 +38,39 @@
 				},
 				"auth-model": "native"
 			}
+		},
+		"postgres-jdbc-1897b534e40-75a85c77e4dd431e": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "inec_srv",
+			"save-password": true,
+			"configuration": {
+				"host": "192.168.100.100",
+				"port": "5432",
+				"database": "inec",
+				"url": "jdbc:postgresql://192.168.100.100:5432/inec",
+				"configurationType": "MANUAL",
+				"home": "postgresql_client",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20",
+					"loginTimeout": "20",
+					"escapeSyntaxCallMode": "callIfNoReturn"
+				},
+				"provider-properties": {
+					"@dbeaver-chosen-role@": "inec",
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"read-keys-with-columns": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
@@ -48,7 +81,10 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"auto-close-transactions": false
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800
 		}
 	}
 }

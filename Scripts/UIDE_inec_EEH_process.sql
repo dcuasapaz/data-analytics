@@ -98,7 +98,7 @@ ORDER BY 1,3;
 -- MORBILIDAD: 2017
 -------------------------------------------------------------------------------------------------------------------------
 
-SELECT * FROM inec_tbl_eeh_2015;
+SELECT * FROM inec_tbl_eeh_2017;
 
 SELECT DISTINCT  cant_res FROM inec_tbl_eeh_2017 WHERE cod_pais = '218' AND prov_res = 'Manabí';
 
@@ -304,3 +304,339 @@ SELECT * FROM inec_qry_mnb_ttl_atn_2018 ORDER BY 3 DESC;
 13	1303	9442
 13	1304	5933
 13	1306	4792
+
+
+--------------------------------------------------------------
+-- ATENCIONES POR ESPECIALIDAD
+--------------------------------------------------------------
+
+DROP SCHEMA egr_hsp;
+CREATE SCHEMA egr_hsp AUTHORIZATION inec;
+
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2015;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2015 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2015
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.s_cnt_nme) = upper(cant_res) AND pbl.i_prv_cde = 13
+WHERE cod_pais = 'EC' 
+AND prov_res = 'Manabí'
+AND con_egrpa IN('Vivo')
+AND anio_egr::integer = 2015
+AND entidad IN ('Ministerio de Salud Pública')
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2015;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2015 AS 
+SELECT 2015 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2015
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+
+SELECT s_egr_esp
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2015
+GROUP BY s_egr_esp
+ORDER BY 2 DESC,1;
+
+-- 2016
+
+SELECT * FROM inec_tbl_eeh_2016;
+
+-- 13: Manabi
+-- EC: Ecuador
+-- 1: Vivo
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2016;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2016 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2016
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.i_cnt_cde)::integer = upper(cant_res)::integer AND pbl.i_prv_cde = 13
+WHERE cod_pais = 'EC' 
+AND prov_res::integer = 13
+AND con_egrpa::integer IN(1)
+AND anio_egr::integer = 2016
+AND entidad::integer IN (1)
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2016;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2016 AS 
+SELECT 2016 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2016
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+DROP TABLE egr_hsp.inec_tbl_ctl_esp_2016;
+CREATE TABLE egr_hsp.inec_tbl_ctl_esp_2016(
+i_esp_id integer
+,s_esp_nme TEXT 
+);
+
+SELECT i_esp_id
+,s_egr_esp
+,s_esp_nme
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2016
+LEFT  JOIN egr_hsp.inec_tbl_ctl_esp_2016 esp ON esp.i_esp_id = s_egr_esp::integer
+GROUP BY 1,2,3
+ORDER BY 3;
+
+-- 2017
+
+SELECT * FROM inec_tbl_eeh_2017;
+
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2017;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2017 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2017
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.s_cnt_nme) = upper(cant_res) AND pbl.i_prv_cde = 13
+WHERE cod_pais = '218' 
+AND prov_res = 'Manabí'
+AND con_egrpa IN('Vivo')
+AND anio_egr::integer = 2017
+AND entidad IN ('Ministerio de Salud Pública')
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2017;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2017 AS 
+SELECT 2017 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2017
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+
+SELECT s_egr_esp
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2017
+GROUP BY s_egr_esp
+ORDER BY 1;
+
+-- 2018
+
+SELECT * FROM inec_tbl_eeh_2018;
+SELECT DISTINCT nom_pais, cod_pais FROM inec_tbl_eeh_2018;
+
+-- 13: Manabi
+-- EC: Ecuador
+-- 1: Vivo
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2018;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2018 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2018
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.i_cnt_cde)::integer = upper(cant_res)::integer AND pbl.i_prv_cde = 13
+WHERE cod_pais = '218' 
+AND prov_res::integer = 13
+AND con_egrpa::integer IN(1)
+AND anio_egr::integer = 2018
+AND entidad::integer IN (1)
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2018;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2018 AS 
+SELECT 2018 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2018
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+SELECT DISTINCT s_egr_causa FROM egr_hsp.inec_qry_att_cnt_2018 WHERE s_egr_esp = '50';
+
+SELECT i_esp_id
+,s_egr_esp
+,s_esp_nme
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2018
+LEFT  JOIN egr_hsp.inec_tbl_ctl_esp_2016 esp ON esp.i_esp_id = s_egr_esp::integer
+GROUP BY 1,2,3
+ORDER BY 3;
+
+-- 2019
+
+SELECT * FROM inec_tbl_eeh_2019;
+
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2019;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2019 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2019
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.i_cnt_cde)::integer = upper(cant_res)::integer AND pbl.i_prv_cde = 13
+WHERE cod_pais = '218' 
+AND prov_res::integer = 13
+AND con_egrpa::integer IN(1)
+AND anio_egr::integer = 2019
+AND entidad::integer IN (1)
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2019;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2019 AS 
+SELECT 2019 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2019
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+SELECT DISTINCT s_egr_causa FROM egr_hsp.inec_qry_att_cnt_2018 WHERE s_egr_esp = '50';
+
+SELECT i_esp_id
+,s_egr_esp
+,s_esp_nme
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2019
+LEFT  JOIN egr_hsp.inec_tbl_ctl_esp_2016 esp ON esp.i_esp_id = s_egr_esp::integer
+GROUP BY 1,2,3
+ORDER BY 3;
+
+
+-- 2020
+
+SELECT * FROM inec_tbl_eeh_2020;
+
+DROP MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2020;
+CREATE MATERIALIZED VIEW egr_hsp.inec_qry_att_cnt_2020 AS 
+SELECT i_prv_cde::integer AS  i_prv_cde
+,upper(prov_res) AS s_prv_nme
+,i_cnt_cde::integer AS i_cnt_cde
+,upper(cant_res) AS s_cnt_nme
+,upper(area_res) AS s_sct_nme
+,upper(cod_edad) AS s_age_cde
+,edad::integer AS i_age_vle
+,LEFT(sexo,1) AS s_sex_nme
+,upper(esp_egrpa) AS s_egr_esp
+,upper(cau_cie10) AS s_egr_causa 
+FROM inec_tbl_eeh_2020
+INNER JOIN dpa_qry_cnt_pbl_2015_2020 pbl ON upper(pbl.i_cnt_cde)::integer = upper(cant_res)::integer AND pbl.i_prv_cde = 13
+WHERE cod_pais = '218' 
+AND prov_res::integer = 13
+AND con_egrpa::integer IN(1)
+AND anio_egr::integer = 2020
+AND entidad::integer IN (1)
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+
+
+-- TOTAL DE ATENCIONES POR ESPECIALIDAD: para seleccionar en el RAS los medicos y especialistas, en base a esta informacion 
+
+DROP VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2020;
+CREATE OR REPLACE VIEW egr_hsp.inec_qry_att_cnt_ttl_att_2020 AS 
+SELECT 2020 AS i_yr 
+,i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+,count(*) AS i_ttl_att
+FROM egr_hsp.inec_qry_att_cnt_2020
+GROUP BY i_prv_cde
+,i_cnt_cde
+,s_egr_esp
+ORDER BY i_prv_cde
+,i_cnt_cde;
+
+SELECT DISTINCT s_egr_causa FROM egr_hsp.inec_qry_att_cnt_2018 WHERE s_egr_esp = '50';
+
+SELECT i_esp_id
+,s_egr_esp
+,s_esp_nme
+,sum(i_ttl_att)
+FROM egr_hsp.inec_qry_att_cnt_ttl_att_2020
+LEFT  JOIN egr_hsp.inec_tbl_ctl_esp_2016 esp ON esp.i_esp_id = s_egr_esp::integer
+GROUP BY 1,2,3
+ORDER BY 3;
+
+SELECT * FROM inec_tbl_eeh_2015;
+
+
